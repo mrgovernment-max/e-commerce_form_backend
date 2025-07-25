@@ -23,7 +23,7 @@ db.connect((err) => {
 app.post("/send", (req, res) => {
   const { name, email, subject, message } = req.body;
   const sql =
-    "INSERT INTO messages (name, email, subject, message) VALUES (?, ?, ?, ?)";
+    "INSERT INTO messages (full_name, email, subject, message) VALUES (?, ?, ?, ?)";
   const values = [name, email, subject, message];
   db.query(sql, values, (err, result) => {
     if (err) {
