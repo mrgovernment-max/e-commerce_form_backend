@@ -5,6 +5,7 @@ const cors = require("cors");
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 const db = mysql.createConnection({
   host: "sql8.freesqldatabase.com",
@@ -27,7 +28,7 @@ app.post("/send", (req, res) => {
   const values = [name, email, subject, message];
   db.query(sql, values, (err, result) => {
     if (err) {
-      console.error("DB insert error:", err); // Add this to log error details
+      console.error("DB insert error:", err);
       return res.status(500).send("Internal Server Error");
     }
     res.send("Message sent");
