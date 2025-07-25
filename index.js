@@ -26,7 +26,10 @@ app.post("/send", (req, res) => {
     "INSERT INTO messages (name, email, subject, message) VALUES (?, ?, ?, ?)";
   const values = [name, email, subject, message];
   db.query(sql, values, (err, result) => {
-    if (err) return res.status(500).send("Error");
+    if (err) {
+      console.error("DB insert error:", err); // Add this to log error details
+      return res.status(500).send("Internal Server Error");
+    }
     res.send("Message sent");
   });
 });
